@@ -85,7 +85,7 @@ public class CustomerServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String cusID = req.getParameter("CusID");
+        String cusID = req.getParameter("lblcusid");
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
 
