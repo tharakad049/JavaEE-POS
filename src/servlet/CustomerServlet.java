@@ -45,7 +45,7 @@ public class CustomerServlet extends HttpServlet {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket", "root", "1234");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/FoodCity", "root", "1234");
 
             PreparedStatement prepareStatement = connection.prepareStatement("Insert into Customer values(?,?,?,?)");
             prepareStatement.setObject(1, customerID);
@@ -91,7 +91,7 @@ public class CustomerServlet extends HttpServlet {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket", "root", "1234");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/FoodCity", "root", "1234");
             PreparedStatement prepareStatement = connection.prepareStatement("Delete from Customer where id=?");
             prepareStatement.setObject(1, cusID);
 
