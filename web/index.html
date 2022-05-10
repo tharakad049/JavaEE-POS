@@ -179,7 +179,7 @@
                     <div class="card">
                         <div class="card-header bg-primary font-weight-bolder">Search Customer</div>
                         <div class="card-body">
-                            <form>
+                            <form id="customerForm">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
@@ -611,7 +611,24 @@
    //-------------- Customer Start-----------------------------------------
 
     $("#btnSave").click(function () {
-
+        var data = $("#customerForm").serialize();
+        $.ajax({
+            url: "customer",
+            method: "POST",
+            data:data,
+            success: function (res) {
+                if (res.status == 200){
+                    alert(res.message);
+                }else{
+                    alert(res.data);
+                }
+            },
+            error:function (ob, textStatus, error) {
+                console.log(ob);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
     });
 
     $("#btnSearch").click(function () {
@@ -625,6 +642,36 @@
     $("#customerDelete").click(function () {
 
     });
+    loadAllCustomers();
+    function loadAllCustomers(){
+        $("#customerTable").empty();
+        $.ajax({
+            url: "customer",
+            method: "GET",
+            success: function (resp) {
+                for (const customer of resp.data){
+                    let row = `<tr><td>${customer.id}</td><td>${customer.name}</td><td>${customer.TP}</td><td>${customer.salary}</td></tr>`;
+                    $("#customerTable").append(row);
+                }
+                bindClickEvents();
+            }
+        });
+    }
+
+    function bindClickEvents(){
+        $("#customerTable>tr").click(function () {
+            let id = $(this).children().eq(0).text();
+            let name = $(this).children().eq(1).text();
+            let tp = $(this).children().eq(2).text();
+            let salary = $(this).children().eq(3).text();
+
+            $("#lblcusid").val(id);
+            $("#lblcusname").val(name);
+            $("#lblcustp").val(tp);
+            $("#lblcussalary").val(salary);
+
+        });
+    }
 
     //-------------- Customer End-----------------------------------------
 
