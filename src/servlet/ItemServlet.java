@@ -1,7 +1,6 @@
 package servlet;
 
-import javax.json.Json;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,17 +8,47 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 @WebServlet(urlPatterns = "/item")
 public class ItemServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        try {
+            resp.setContentType("application/json");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/FoodCity", "root", "1234");
+            PrintWriter writer = resp.getWriter();
+
+            ResultSet rst = connection.prepareStatement("select * from Item").executeQuery();
+            JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+
+            while (rst.next()) {
+                String code = rst.getString(1);
+                String name = rst.getString(2);
+                String qty = rst.getString(3);
+                double price = rst.getDouble(4);
+
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                objectBuilder.add("code", code);
+                objectBuilder.add("name", name);
+                objectBuilder.add("qty", qty);
+                objectBuilder.add("price", price);
+
+                arrayBuilder.add(objectBuilder.build());
+            }
+            JsonObjectBuilder response = Json.createObjectBuilder();
+            response.add("status", 200);
+            response.add("message", "Done");
+            response.add("data", arrayBuilder.build());
+            writer.print(response.build());
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
@@ -117,6 +146,50 @@ public class ItemServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+        JsonReader reader = Json.createReader(req.getReader());
+        JsonObject jsonObject = reader.readObject();
+        String itemCode = jsonObject.getString("code");
+        String itemName = jsonObject.getString("name");
+        String itemQty = jsonObject.getString("qty");
+        String itemPrice = jsonObject.getString("price");
+        PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/FoodCity", "root", "1234");
+            PreparedStatement preparedStatement = connection.prepareStatement("Update Item set name=?,qty=?,price=? where code=?");
+            preparedStatement.setObject(1, itemName);
+            preparedStatement.setObject(2, itemQty);
+            preparedStatement.setObject(3, itemPrice);
+            preparedStatement.setObject(4, itemCode);
+
+            if (preparedStatement.executeUpdate() > 0) {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                objectBuilder.add("status", 200);
+                objectBuilder.add("message", "Successfully Updated");
+                objectBuilder.add("data", "");
+                writer.print(objectBuilder.build());
+            } else {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                objectBuilder.add("status", 400);
+                objectBuilder.add("message", "Update Failed");
+                objectBuilder.add("data", "");
+                writer.print(objectBuilder.build());
+            }
+
+        } catch (ClassNotFoundException e) {
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "Update Failed");
+            objectBuilder.add("data", e.getLocalizedMessage());
+            writer.print(objectBuilder.build());
+        } catch (SQLException throwables) {
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "Update Failed");
+            objectBuilder.add("data", throwables.getLocalizedMessage());
+            writer.print(objectBuilder.build());
+        }
     }
 }

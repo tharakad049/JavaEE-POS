@@ -158,7 +158,7 @@ public class CustomerServlet extends HttpServlet {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/company", "root", "1234");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/FoodCity", "root", "1234");
             PreparedStatement preparedStatement = connection.prepareStatement("Update Customer set name=?,tp=?,salary=? where id=?");
             preparedStatement.setObject(1, customerName);
             preparedStatement.setObject(2, customerTp);
