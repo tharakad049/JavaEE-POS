@@ -278,7 +278,7 @@
                     <div class="card">
                         <div class="card-header bg-primary font-weight-bolder">Search Item</div>
                         <div class="card-body">
-                            <form>
+                            <form id="itemForm">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
@@ -650,7 +650,7 @@
             method: "GET",
             success: function (resp) {
                 for (const customer of resp.data){
-                    let row = `<tr><td>${customer.id}</td><td>${customer.name}</td><td>${customer.TP}</td><td>${customer.salary}</td></tr>`;
+                    let row = `<tr><td>${customer.id}</td><td>${customer.name}</td><td>${customer.tp}</td><td>${customer.salary}</td></tr>`;
                     $("#customerTable").append(row);
                 }
                 bindClickEvents();
@@ -678,7 +678,24 @@
     //-------------- Item Start-----------------------------------------
 
     $("#btnSaveAndUpdate").click(function () {
-
+        var data = $("#itemForm").serialize();
+        $.ajax({
+            url: "customer",
+            method: "POST",
+            data:data,
+            success: function (res) {
+                if (res.status == 200){
+                    alert(res.message);
+                }else{
+                    alert(res.data);
+                }
+            },
+            error:function (ob, textStatus, error) {
+                console.log(ob);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
     });
 
     $("#btnsearch").click(function () {
