@@ -69,7 +69,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item link-Order" href="#" id="linkOrder">Manage Order</a></li>
+                        <li><a class="dropdown-item link-Order" href="customer" id="linkOrder">Manage Order</a></li>
                     </ul>
                 </li>
             </ul>
@@ -607,110 +607,6 @@
         $("#itemContent").css("display", "none");
         $("#orderContent").css("display", "none");
     });
-
-   //-------------- Customer Start-----------------------------------------
-
-    $("#btnSave").click(function () {
-        var data = $("#customerForm").serialize();
-        $.ajax({
-            url: "customer",
-            method: "POST",
-            data:data,
-            success: function (res) {
-                if (res.status == 200){
-                    alert(res.message);
-                }else{
-                    alert(res.data);
-                }
-            },
-            error:function (ob, textStatus, error) {
-                console.log(ob);
-                console.log(textStatus);
-                console.log(error);
-            }
-        });
-    });
-
-    $("#btnSearch").click(function () {
-
-    });
-
-    $("#btnUpdate").click(function () {
-
-    });
-
-    $("#customerDelete").click(function () {
-
-    });
-    loadAllCustomers();
-    function loadAllCustomers(){
-        $("#customerTable").empty();
-        $.ajax({
-            url: "customer",
-            method: "GET",
-            success: function (resp) {
-                for (const customer of resp.data){
-                    let row = `<tr><td>${customer.id}</td><td>${customer.name}</td><td>${customer.tp}</td><td>${customer.salary}</td></tr>`;
-                    $("#customerTable").append(row);
-                }
-                bindClickEvents();
-            }
-        });
-    }
-
-    function bindClickEvents(){
-        $("#customerTable>tr").click(function () {
-            let id = $(this).children().eq(0).text();
-            let name = $(this).children().eq(1).text();
-            let tp = $(this).children().eq(2).text();
-            let salary = $(this).children().eq(3).text();
-
-            $("#lblcusid").val(id);
-            $("#lblcusname").val(name);
-            $("#lblcustp").val(tp);
-            $("#lblcussalary").val(salary);
-
-        });
-    }
-
-    //-------------- Customer End-----------------------------------------
-
-    //-------------- Item Start-----------------------------------------
-
-    $("#btnSaveAndUpdate").click(function () {
-        var data = $("#itemForm").serialize();
-        $.ajax({
-            url: "customer",
-            method: "POST",
-            data:data,
-            success: function (res) {
-                if (res.status == 200){
-                    alert(res.message);
-                }else{
-                    alert(res.data);
-                }
-            },
-            error:function (ob, textStatus, error) {
-                console.log(ob);
-                console.log(textStatus);
-                console.log(error);
-            }
-        });
-    });
-
-    $("#btnsearch").click(function () {
-
-    });
-
-    $("#btnUpdated").click(function () {
-
-    });
-
-    $("#itemDelete").click(function () {
-
-    });
-
-    //-------------- Item End-----------------------------------------
 
     //-------------- Order Start-----------------------------------------
 

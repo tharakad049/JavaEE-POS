@@ -1,10 +1,44 @@
+const itemCodeRegEx = /^(I00)[0-9]{1,3}$/;
+const itemNameRegEx = /^[A-z ]{3,20}$/;
+const itemQuantityRegEx = /^[0-9/A-z. ,]{1,}$/;
+const itemPriceRegEx = /^[0-9]{1,}[.]?[0-9]{1,2}$/;
+
 $("#btnSaveAndUpdate").click(function () {
+    var data = $("#itemForm").serialize();
+    $.ajax({
+        url: "customer",
+        method: "POST",
+        data:data,
+        success: function (res) {
+            if (res.status == 200){
+                alert(res.message);
+            }else{
+                alert(res.data);
+            }
+        },
+        error:function (ob, textStatus, error) {
+            console.log(ob);
+            console.log(textStatus);
+            console.log(error);
+        }
+    });
     saveItem();
-    //clearAllItems();
-    loadAllItems();
-    //updateItem();
     $('#txtCode,#txtItemName,#txtQuantity,#txtPrice').val("");
     generateItemCode();
+    checkIfValid();
+    clearAllItems();
+});
+
+$("#btnsearch").click(function () {
+
+});
+
+$("#btnUpdated").click(function () {
+
+});
+
+$("#itemDelete").click(function () {
+
 });
 
 function generateItemCode() {
@@ -21,89 +55,14 @@ function generateItemCode() {
     } catch (e) {
         $("#txtCode").val("I001");
     }
-/*    if (itemDB.length!=0) {
-        let lastrecord = itemDB[itemDB.length - 1].code;
-        let split = lastrecord.split("-");
-        let splitElement = ++split[1];
-        if (splitElement < 10 && splitElement > 0) {
-            $("#txtCode").val("I00-" + "00" + splitElement);
-        } else if (splitElement > 99) {
-            $("#txtCode").val("I00-" + splitElement);
-        } else {
-            $("#txtCode").val("I00-001");
-        }
-    }else{
-        $("#txtCode").val("I00-001");
-    }*/
 }
 
-loadingMehtord();
-function loadingMehtord() {
+loadingMethord();
+function loadingMethord () {
     generateItemCode();
 }
 
-$("#itemDelete").click(function (){
-    let id=$('#txtCode').val();
-    let option=confirm(`Do you want to delete ID:${id}`);
-    if(option){
-        let erase=deleteItem();
-        if(erase){
-            alert("Item Deleted");
-        }else{
-            alert("Failed Item Delete");
-        }
-    }
-    $('#txtCode,#txtItemName,#txtQuantity,#txtPrice').val("");
-    generateItemCode();
-    loadAllItems();
-/*    var itemCode= $("#txtSearchItemCode").val();
-    for (var i in itemDB){
-        if (itemCode==itemDB[i].code){
-            itemDB.splice(i,1);
-            loadAllItems();
-            alert("Item Delete Complete");
-            break;
-        }
-    }*/
-});
-
-function deleteItem() {
-    let itemCode=$("#txtCode").val();
-    let item;
-    if(itemCode!=null){
-        for(var i=0;i<itemDB.length;i++) {
-            if (itemCode == itemDB[i].getCode()) {
-                item = itemDB[i];
-            }
-        }
-        let index=itemDB.indexOf(item);
-        itemDB.splice(index,1);
-        return true;
-    }else{
-        return false;
-    }
-
-
-}
-function saveItem() {
-    let itemCode = $("#txtCode").val();
-    let itemName = $("#txtItemName").val();
-    let itemQuantity = $("#txtQuantity").val();
-    let itemPrice = $("#txtPrice").val();
-
-    let item=new ItemDTO(itemCode,itemName,itemQuantity,itemPrice);
-    itemDB.push(item);
-/*    //create Object
-    var itemObject = {
-        code: itemCode,
-        iName: itemName,
-        quantity: itemQuantity,
-        price: itemPrice
-    };
-    itemDB.push(itemObject);*/
-}
-
-function searchItem() {
+/*function searchItem() {
     for (var i=0;i<itemDB.length;i++) {
         if ($('#txtSearchItemCode').val() == itemDB[i].getCode()) {
             $("#txtCode").val(itemDB[i].getCode());
@@ -115,86 +74,12 @@ function searchItem() {
             $("#txtItemName").focus();
         }
     }
-/*    for (let i = 0; i < itemDB.length; i++) {
+/!*    for (let i = 0; i < itemDB.length; i++) {
         if (itemDB[i].code == id) {
             return itemDB[i];
         }
-    }*/
-}
-
-$("#btnUpdated").click(function () {
-    console.log("Item Update Complete");
-    updateItem();
-    loadAllItems();
-    $('#txtCode,#txtItemName,#txtQuantity,#txtPrice').val("");
-    generateItemCode();
-/*    for (var i in itemDB){
-        if ($("#txtCode").val()==itemDB[i].code){
-            $("#btnSave").attr('disabled', true);
-            $("#txtItemName").val();
-            $("#txtQuantity").val();
-            $("#txtPrice").val();
-
-            itemDB[i].name;
-            itemDB[i].qty;
-            itemDB[i].price;
-
-            $("#btnSave").attr('disabled', true);
-            clearAllItems();
-            generateItemCode();
-            updateItem();
-            loadAllItems();
-            alert("Item Update complete");
-            break;
-        }
-    }*/
-});
-
-function updateItem(){
-    let itemCode=$("#txtCode").val();
-    let item;
-    for(var i=0;i<itemDB.length;i++){
-        if(itemCode==itemDB[i].getCode()){
-            item=itemDB[i];
-            item.setName($('#txtItemName').val());
-            item.setQty($('#txtQuantity').val());
-            item.setPrice($('#txtPrice').val());
-        }
-    }
-/*    $("#itemTable>tr").on('dblclick',function (e) {
-        $("#txtCode").val($(this).children(':eq(0)').text());
-        $(" #txtCode").prop( "disabled", true );
-        $(" #txtItemName").val($(this).children(':eq(1)').text());
-        $(" #txtQuantity").val($(this).children(':eq(2)').text());
-        $(" #txtPrice").val($(this).children(':eq(3)').text());
-        $("#btnSave").attr('disabled', true);
-    });
-    $("#btnSave").attr('disabled', true);*/
-}
-
-function loadAllItems() {
-    $("#itemTable").empty();
-    // if (isAdded > 0) {
-
-    for (var i of itemDB) {
-        let row = `<tr><td>${i.getCode()}</td><td>${i.getName()}</td><td>${i.getQty()}</td><td>${i.getPrice()}</td></tr>`;
-        $("#itemTable").append(row);
-        $("#itemTable>tr").click(function () {
-
-
-            $("#txtCode").val($(this).children(":eq(0)").text());
-            $("#txtItemName").val($(this).children(":eq(1)").text());
-            $("#txtQuantity").val($(this).children(":eq(2)").text());
-            $("#txtPrice").val($(this).children(":eq(3)").text());
-            clearItemField()
-        });
-    }
-/*    $("#itemTable").empty();
-    for (var i of itemDB) {
-        let row = `<tr><td>${i.code}</td><td>${i.iName}</td><td>${i.quantity}</td><td>${i.price}</td></tr>`;
-        $("#itemTable").append(row);
-    }*/
-}
+    }*!/
+}*/
 
 $("#btnClosed").click(function () {
     $('#txtCode,#txtItemName,#txtQuantity,#txtPrice').val("");
@@ -211,29 +96,6 @@ function clearAllItems() {
     generateItemCode();
 }
 
-// search customer
-$("#btnsearch").click(function () {
-    clearAllItems();
-    searchItem();
-/*    var searchID = $("#txtSearchItemCode").val();
-    var response = searchItem(searchID);
-    if (response) {
-        $("#txtCode").val(response.code);
-        $("#txtItemName").val(response.iName);
-        $("#txtQuantity").val(response.quantity);
-        $("#txtPrice").val(response.price);
-    } else {
-        clearAll();
-        alert("No Such a Item");
-    }*/
-});
-
-const itemCodeRegEx = /^(I00)[0-9]{1,3}$/;
-const itemNameRegEx = /^[A-z ]{3,20}$/;
-const itemQuantityRegEx = /^[0-9/A-z. ,]{1,}$/;
-const itemPriceRegEx = /^[0-9]{1,}[.]?[0-9]{1,2}$/;
-
-
 $('#txtCode,#txtItemName,#txtQuantity,#txtPrice').on('keydown', function (eventOb) {
     if (eventOb.key == "Tab") {
         eventOb.preventDefault(); // stop execution of the button
@@ -247,18 +109,15 @@ $('#txtCode,#txtItemName,#txtQuantity,#txtPrice').on('blur', function () {
 //focusing events
 $("#txtCode").on('keyup', function (eventOb) {
     setButtons();
-/*    if (eventOb.key == "Enter") {
+    if (eventOb.key == "Enter") {
         checkIfValid();
-    }
-
-    if (eventOb.key == "Control") {
         var typedItemCode = $("#txtCode").val();
         var srcItem = searchItemFromCode(typedItemCode);
         $("#txtCode").val(srcItem.getItemCode());
         $("#txtItemName").val(srcItem.getItemName());
         $("#txtQuantity").val(srcItem.getItemQuantity());
         $("#txtPrice").val(srcItem.getItemPrice());
-    }*/
+    }
 });
 
 $("#txtItemName").on('keyup', function (eventOb) {
@@ -361,7 +220,3 @@ function setButtons() {
         $("#btnSaveAndUpdate").attr('disabled', true);
     }
 }
-
-$('#btnSaveAndUpdate').click(function () {
-    checkIfValid();
-});

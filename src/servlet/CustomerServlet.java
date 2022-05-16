@@ -1,6 +1,5 @@
 package servlet;
 
-import javax.annotation.Resource;
 import javax.json.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
