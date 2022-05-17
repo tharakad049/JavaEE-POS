@@ -51,25 +51,25 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a aria-current="page" class="nav-link active" href="#" id="linkHome">Home</a>
+                    <a aria-current="page" class="nav-link active" id="linkHome">Home</a>
                 </li>
 
                 <li class="nav-item">
-                    <a aria-current="page" class="nav-link active link-Order" href="#">Orders</a>
+                    <a aria-current="page" class="nav-link active link-Order" >Orders</a>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                        id="navbarDropdown" role="button">
                         Others
                     </a>
                     <ul aria-labelledby="navbarDropdown" class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#" id="linkCustomer">Manage Customer</a></li>
-                        <li><a class="dropdown-item" href="#" id="linkItem">Manage Items</a></li>
+                        <li><a class="dropdown-item"  id="linkCustomer" >Manage Customer</a></li>
+                        <li><a class="dropdown-item" id="linkItem">Manage Items</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item link-Order" href="customer" id="linkOrder">Manage Order</a></li>
+                        <li><a class="dropdown-item link-Order" id="linkOrder" >Manage Order</a></li>
                     </ul>
                 </li>
             </ul>
@@ -172,102 +172,57 @@
 </section>
 
 <section class="container-fluid" id="customerContent">
-    <div class="container-fluid mt-4">
-        <div class="jumbotron pt-4">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-header bg-primary font-weight-bolder">Search Customer</div>
-                        <div class="card-body">
-                            <form id="customerForm">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>Customer Id :- </label>
-                                            <input class="form-control" id="txtSearchCusID" placeholder="Customer ID" type="text">
-                                        <span class="control-error"></span>
-                                        </div>
-                                    </div>
-                                    <hr class="mt-4">
-                                </div>
-                                <div class="form-group text-right">
-                                    <button class="btn btn-success m-3" id="btnSearch" type="button">Search</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <button class="btn btn-danger mt-5" id="customerDelete" type="button">Delete</button>
-<!--                    <button class="btn btn-primary mt-5" type="button">Details</button>
-                    <button class="btn btn-success mt-5" type="button">Clear</button>-->
+    <div class="row mt-3">
+        <div class="col-4">
+            <form id="customerForm">
+                <div class="mb-3">
+                    <label class="form-label" for="cusID">Customer ID</label>
+                    <input class="form-control" id="cusID" name="customerID" placeholder="Customer ID" type="text">
                 </div>
-                <div class="col-lg-5 mt-lg-0 mt-3">
-                    <div class="card">
-                        <div class="card-header bg-primary  font-weight-bolder">New Customer</div>
-                        <div class="card-body">
-                            <form>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-group ">
-                                            <label for="txtId">Customer Id :-</label>
-                                            <input class="form-control" id="txtId" placeholder="Customer ID"
-                                                   type="text">
-                                            <p><small class="text-danger pl-1" id="lblcusid"></small></p>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label for="txtName">Customer Name :- </label>
-                                            <input class="form-control" id="txtName" placeholder="Customer Name" type="text"></div>
-                                        <p><small class="text-danger pl-1" id="lblcusname"></small></p>
-
-                                    </div>
-                                    <div class="col-5">
-                                        <div class="form-group">
-                                            <label for="txtTp">Customer Tp :- </label>
-                                            <input class="form-control" id="txtTp" placeholder="Customer Tp" type="text">
-                                            <p><small class="text-danger pl-1" id="lblcustp"></small></p>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <label for="txtSalary">Customer Salary :- </label>
-                                            <input class="form-control" id="txtSalary" placeholder="Customer Salary"
-                                                   type="text">
-                                            <p><small class="text-danger pl-1" id="lblcussalary"></small></p>
-
-                                        </div>
-                                    </div>
-                                    <hr class="mt-4">
-                                </div>
-                                <div class="form-group text-right">
-                                    <button class="btn btn-danger col-12 col-sm-auto mt-1" id="btnSave" type="button">Save</button>
-                                    <button class="btn btn-warning col-12 col-sm-auto mt-1" id="btnUpdate" type="button">Renew</button>
-                                    <button class="btn btn-primary col-12 col-sm-auto mt-1" id="btnClose" type="button">Close</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                <div class="mb-3">
+                    <label class="form-label" for="cusName">Customer Name</label>
+                    <input class="form-control" id="cusName" name="customerName" placeholder="Customer Name"
+                           type="text">
                 </div>
-            </div>
-
-            <div class="col-md-12 mt-4" style="height:180px; overflow-y: scroll">
-                <table class="table table-bordered text-white">
-                    <thead class="bg-primary">
-                    <tr>
-                        <th>Customer Id</th>
-                        <th>Customer Name</th>
-                        <th>Customer Tp</th>
-                        <th>Customer Salary</th>
-                    </tr>
-                    </thead>
-                    <tbody class="bg-light text-dark" id="customerTable">
-
-                    </tbody>
-                </table>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label" for="cusAddress">Customer Address</label>
+                    <input class="form-control" id="cusAddress" name="customerAddress" placeholder="Customer Address"
+                           type="text">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="cusSalary">Customer Salary</label>
+                    <input class="form-control" id="cusSalary" name="customerSalary" placeholder="Customer Salary"
+                           type="text">
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-primary" id="btnSaveCustomer" type="button">Save</button>
+                    <button class="btn btn-warning" id="btnUpdateCustomer" type="button">Update</button>
+                    <button class="btn btn-danger" id="btnDeleteCustomer" type="button">Delete</button>
+                </div>
+            </form>
+        </div>
+        <div class="col">
+            <table class="table table-bordered table-hover">
+                <thead class="bg-danger text-white">
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Salary</th>
+                </tr>
+                </thead>
+                <tbody id="tblCustomerJson">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+
 </section>
 
 <section class="container-fluid" id="itemContent">
@@ -312,7 +267,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="txtName">Item Name :-</label>
+                                            <label for="txtItemName">Item Name :-</label>
                                             <input class="form-control" id="txtItemName" placeholder="Item Name" type="text">
                                             <p><small class="text-danger pl-1" id="lblItemName"></small></p>
 
@@ -556,22 +511,12 @@
     </div>
 </section>
 
-<script src="db/DB.js"></script>
-
 <script src="assets/js/bootstrap.bundle.js"></script>
 <script src="assets/jQuery/jquery-3.6.0.min.js"></script>
 
-<script src="controller/CustomerController.js"></script>
-<script src="controller/ItemController.js"></script>
-<script src="controller/OrderController.js"></script>
-
-<script src="model/CustomerDTO.js"></script>
-<script src="model/ItemDTO.js"></script>
-<script src="model/OrderDTO.js"></script>
-<script src="model/OrderCartDTO.js"></script>
-<script src="model/OrderDetailsDTO.js"></script>
-
 <script>
+
+
     $("#dashboardContent").css("display", "block");
     $("#customerContent").css("display", "none");
     $("#itemContent").css("display", "none");
