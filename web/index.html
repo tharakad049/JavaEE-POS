@@ -231,20 +231,16 @@
             <form id="itemForm">
                 <div class="mb-3">
                     <label class="form-label" for="txtCode">Item CODE</label>
-                    <input class="form-control" id="txtCode" name="itemCode" placeholder="Item CODE" type="text">
-                </div>
+                    <input class="form-control" id="txtCode" name="itemCode" placeholder="Item CODE" type="text"></div>
                 <div class="mb-3">
                     <label class="form-label" for="txtItemName">Item Name</label>
-                    <input class="form-control" id="txtItemName" name="itemName" placeholder="Item Name" type="text">
-                </div>
+                    <input class="form-control" id="txtItemName" name="itemName" placeholder="Item Name" type="text"></div>
                 <div class="mb-3">
-                    <label class="form-label" for="txtQuantity">Item QTY</label>
-                    <input class="form-control" id="txtQuantity" name="itemQty" placeholder="Item QTY" type="text">
-                </div>
+                    <label class="form-label" for="txtItemQuantity">Item QTY</label>
+                    <input class="form-control" id="txtItemQuantity" name="itemQuantity" placeholder="Item QTY" type="text"></div>
                 <div class="mb-3">
                     <label class="form-label" for="txtPrice">Item Price</label>
-                    <input class="form-control" id="txtPrice" name="itemPrice" placeholder="Item Price" type="text">
-                </div>
+                    <input class="form-control" id="txtPrice" name="itemPrice" placeholder="Item Price" type="text"></div>
                 <div class="mb-3">
                     <button class="btn btn-primary" id="btnSaveItem" type="button">Save</button>
                     <button class="btn btn-warning" id="btnUpdateItem" type="button">Update</button>
@@ -635,13 +631,14 @@
                 console.log(error);
             }
         });
+        loadAllItems();
     });
 
     $("#btnUpdateItem").click(function () {
         var itemOb = {
             id: $("#txtCode").val(),
             name: $("#txtItemName").val(),
-            qty: $("#txtQuantity").val(),
+            qty: $("#txtItemQuantity").val(),
             price: $("#txtPrice").val()
         }
         $.ajax({
@@ -700,21 +697,21 @@
                     let row = `<tr><td>${item.code}</td><td>${item.name}</td><td>${item.qty}</td><td>${item.price}</td></tr>`;
                     $("#tblItems").append(row);
                 }
-                bindClickEvents();
+                ClickEvents();
             }
         });
     }
 
-    function bindClickEvents() {
+    function ClickEvents() {
         $("#tblItems>tr").click(function () {
             let code = $(this).children().eq(0).text();
             let name = $(this).children().eq(1).text();
-            let qty = $(this).children().eq(2).text();
+            let quantity = $(this).children().eq(2).text();
             let price = $(this).children().eq(3).text();
 
             $("#txtCode").val(code);
             $("#txtItemName").val(name);
-            $("#txtQuantity").val(qty);
+            $("#txtItemQuantity").val(quantity);
             $("#txtPrice").val(price);
         });
     }

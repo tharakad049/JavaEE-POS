@@ -148,10 +148,10 @@ public class ItemServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
-        String itemCode = jsonObject.getString("code");
-        String itemName = jsonObject.getString("name");
-        String itemQty = jsonObject.getString("qty");
-        String itemPrice = jsonObject.getString("price");
+        String itemCode = jsonObject.getString("itemCode");
+        String itemName = jsonObject.getString("itemName");
+        String itemQty = jsonObject.getString("itemQuantity");
+        String itemPrice = jsonObject.getString("itemPrice");
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
 
