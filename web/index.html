@@ -55,7 +55,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a aria-current="page" class="nav-link active link-Order" >Orders</a>
+                    <a aria-current="page" class="nav-link active link-Order">Orders</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -64,12 +64,12 @@
                         Others
                     </a>
                     <ul aria-labelledby="navbarDropdown" class="dropdown-menu">
-                        <li><a class="dropdown-item"  id="linkCustomer" >Manage Customer</a></li>
+                        <li><a class="dropdown-item" id="linkCustomer">Manage Customer</a></li>
                         <li><a class="dropdown-item" id="linkItem">Manage Items</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item link-Order" id="linkOrder" >Manage Order</a></li>
+                        <li><a class="dropdown-item link-Order" id="linkOrder">Manage Order</a></li>
                     </ul>
                 </li>
             </ul>
@@ -181,15 +181,18 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="txtName">Customer Name</label>
-                    <input class="form-control" id="txtName" name="customerName" placeholder="Customer Name" type="text">
+                    <input class="form-control" id="txtName" name="customerName" placeholder="Customer Name"
+                           type="text">
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="txtAddress">Customer Address</label>
-                    <input class="form-control" id="txtAddress" name="customerAddress" placeholder="Customer Address" type="text">
+                    <input class="form-control" id="txtAddress" name="customerAddress" placeholder="Customer Address"
+                           type="text">
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="txtSalary">Customer Salary</label>
-                    <input class="form-control" id="txtSalary" name="customerSalary" placeholder="Customer Salary" type="text">
+                    <input class="form-control" id="txtSalary" name="customerSalary" placeholder="Customer Salary"
+                           type="text">
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-primary" id="btnSaveCustomer" type="button">Save</button>
@@ -223,97 +226,51 @@
 </section>
 
 <section class="container-fluid" id="itemContent">
-    <div class="container-fluid mt-4">
-        <div class="jumbotron pt-4">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-header bg-primary font-weight-bolder">Search Item</div>
-                        <div class="card-body">
-                            <form id="itemForm">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>Item Code :- </label>
-                                            <input class="form-control" id="txtSearchItemCode" placeholder="Item Code" type="text">
-                                            <span class="control-error" id="orderId-invalid-error"></span>
-                                        </div>
-                                    </div>
-                                    <hr class="mt-4">
-                                </div>
-                                <div class="form-group text-right">
-                                    <button class="btn btn-success m-3" id="btnsearch" type="button">Search</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <button class="btn btn-danger mt-5" id="itemDelete" type="button">Delete</button>
+    <div class="row mt-3">
+        <div class="col-4">
+            <form id="itemForm">
+                <div class="mb-3">
+                    <label class="form-label" for="txtCode">Item CODE</label>
+                    <input class="form-control" id="txtCode" name="itemCode" placeholder="Item CODE" type="text">
                 </div>
-                <div class="col-lg-5 mt-lg-0 mt-3">
-                    <div class="card">
-                        <div class="card-header bg-primary  font-weight-bolder">New Item</div>
-                        <div class="card-body">
-                            <form>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-group ">
-                                            <label for="txtCode">Item Code :-</label>
-                                            <input class="form-control" id="txtCode" placeholder="Item Code" type="text">
-                                            <p><small class="text-danger pl-1" id="lblItemCode"></small></p>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label for="txtItemName">Item Name :-</label>
-                                            <input class="form-control" id="txtItemName" placeholder="Item Name" type="text">
-                                            <p><small class="text-danger pl-1" id="lblItemName"></small></p>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-5">
-                                        <div class="form-group">
-                                            <label for="txtQuantity">Item Quantity :-</label>
-                                            <input class="form-control" id="txtQuantity" placeholder="Item Quantity" type="text">
-                                            <p><small class="text-danger pl-1" id="lblItemQuantity"></small></p>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <label for="txtPrice">Item Price :-</label>
-                                            <input class="form-control" id="txtPrice" placeholder="Item Price" type="text">
-                                            <p><small class="text-danger pl-1" id="lblItemPrice"></small></p>
-
-                                        </div>
-                                    </div>
-                                    <hr class="mt-4">
-                                </div>
-                                <div class="form-group text-right">
-                                    <button class="btn btn-danger col-12 col-sm-auto mt-1" id="btnSaveAndUpdate" type="button">Save</button>
-                                    <button class="btn btn-warning col-12 col-sm-auto mt-1" id="btnUpdated" type="button">Renew</button>
-                                    <button class="btn btn-primary col-12 col-sm-auto mt-1" id="btnClosed" type="button">Close</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                <div class="mb-3">
+                    <label class="form-label" for="txtItemName">Item Name</label>
+                    <input class="form-control" id="txtItemName" name="itemName" placeholder="Item Name" type="text">
                 </div>
-            </div>
-
-            <div class="col-md-12 mt-4" style="height:180px; overflow-y: scroll">
-                <table class="table table-bordered text-white">
-                    <thead class="bg-primary">
-                    <tr>
-                        <th>Item Code</th>
-                        <th>Item Name</th>
-                        <th>Item Quantity</th>
-                        <th>Item Price</th>
-                    </tr>
-                    </thead>
-                    <tbody class="bg-light text-dark" id="itemTable">
-
-                    </tbody>
-                </table>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label" for="txtQuantity">Item QTY</label>
+                    <input class="form-control" id="txtQuantity" name="itemQty" placeholder="Item QTY" type="text">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="txtPrice">Item Price</label>
+                    <input class="form-control" id="txtPrice" name="itemPrice" placeholder="Item Price" type="text">
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-primary" id="btnSaveItem" type="button">Save</button>
+                    <button class="btn btn-warning" id="btnUpdateItem" type="button">Update</button>
+                    <button class="btn btn-danger" id="btnDeleteItem" type="button">Delete</button>
+                </div>
+            </form>
+        </div>
+        <div class="col">
+            <table class="table table-bordered table-hover">
+                <thead class="bg-danger text-white">
+                <tr>
+                    <th>Item CODE</th>
+                    <th>Item Name</th>
+                    <th>Item QTY</th>
+                    <th>Item Price</th>
+                </tr>
+                </thead>
+                <tbody id="tblItems">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>
@@ -356,7 +313,8 @@
                                     <div class="col-6">
 
                                         <button class="btn btn-outline-success mt-4" id="btnOrderCusSearch"
-                                                type="button">search Customer</button>
+                                                type="button">search Customer
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -547,7 +505,7 @@
     });
 
 
-//-------------------------------------- Customer Start ---------------------------------------------//
+    //-------------------------------------- Customer Start ---------------------------------------------//
 
     $("#btnSaveCustomer").click(function () {
         var data = $("#customerForm").serialize();
@@ -623,7 +581,6 @@
         });
     });
 
-
     loadAllCustomers();
     function loadAllCustomers() {
         $("#tblCustomer").empty();
@@ -654,62 +611,117 @@
         });
     }
 
-
-//-------------------------------------- Customer End ---------------------------------------------//
-
+    //-------------------------------------- Customer End ---------------------------------------------//
 
 
-//-------------------------------------- Item Start ---------------------------------------------//
+    //-------------------------------------- Item Start ---------------------------------------------//
 
-    $("#btnSaveAndUpdate").click(function () {
+    $("#btnSaveItem").click(function () {
         var data = $("#itemForm").serialize();
         $.ajax({
-            url: "customer",
+            url: "item",
             method: "POST",
-            data:data,
+            data: data,
             success: function (res) {
-                if (res.status == 200){
+                if (res.status == 200) {
                     alert(res.message);
-                }else{
+                } else {
                     alert(res.data);
                 }
             },
-            error:function (ob, textStatus, error) {
+            error: function (ob, textStatus, error) {
                 console.log(ob);
                 console.log(textStatus);
                 console.log(error);
             }
         });
-        $('#txtCode,#txtItemName,#txtQuantity,#txtPrice').val("");
-        clearAllItems();
     });
 
-    $("#btnsearch").click(function () {
-
-    });
-
-    $("#btnUpdated").click(function () {
-
+    $("#btnUpdateItem").click(function () {
+        var itemOb = {
+            id: $("#txtCode").val(),
+            name: $("#txtItemName").val(),
+            qty: $("#txtQuantity").val(),
+            price: $("#txtPrice").val()
+        }
+        $.ajax({
+            url: "item",
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(itemOb),
+            success: function (res) {
+                if (res.status == 200) {
+                    alert(res.message);
+                    loadAllCustomers();
+                } else if (res.status == 400) {
+                    alert(res.message);
+                } else {
+                    alert(res.data);
+                }
+            },
+            error: function (ob,) {
+                console.log(ob);
+            }
+        });
     });
 
     $("#itemDelete").click(function () {
-
+        let itemCode = $("#txtCode").val();
+        $.ajax({
+            url: "item?itemCode=" + itemCode,
+            method: "DELETE",
+            success: function (res) {
+                console.log(res);
+                if (res.status == 200) {
+                    alert(res.message);
+                    loadAllCustomers();
+                } else if (res.status == 400) {
+                    alert(res.data);
+                } else {
+                    alert(res.data);
+                }
+            },
+            error: function (ob, status, t) {
+                console.log(ob);
+                console.log(status);
+                console.log(t);
+            }
+        });
     });
 
-    $("#btnClosed").click(function () {
-        $('#txtCode,#txtItemName,#txtQuantity,#txtPrice').val("");
-    });
-
-    function clearAllItems() {
-        $('#txtCode,#txtItemName,#txtQuantity,#txtPrice').val("");
-        $('#txtCode,#txtItemName,#txtQuantity,#txtPrice').css('border', '2px solid #ced4da');
-        $('#txtCode').focus();
-        $("#lblItemCode,#lblItemName,#lblItemQuantity,#lblItemPrice").text("");
+    loadAllItems();
+    function loadAllItems() {
+        $("#tblItems").empty();
+        $.ajax({
+            url: "item",
+            method: "GET",
+            success: function (resp) {
+                for (const item of resp.data) {
+                    let row = `<tr><td>${item.code}</td><td>${item.name}</td><td>${item.qty}</td><td>${item.price}</td></tr>`;
+                    $("#tblItems").append(row);
+                }
+                bindClickEvents();
+            }
+        });
     }
 
+    function bindClickEvents() {
+        $("#tblItems>tr").click(function () {
+            let code = $(this).children().eq(0).text();
+            let name = $(this).children().eq(1).text();
+            let qty = $(this).children().eq(2).text();
+            let price = $(this).children().eq(3).text();
 
+            $("#txtCode").val(code);
+            $("#txtItemName").val(name);
+            $("#txtQuantity").val(qty);
+            $("#txtPrice").val(price);
+        });
+    }
 
     //-------------------------------------- Item End ---------------------------------------------//
+
+
 
     //-------------------------------------- Order Start ------------------------------------------//
 

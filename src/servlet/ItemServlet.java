@@ -18,7 +18,7 @@ public class ItemServlet extends HttpServlet {
         try {
             resp.setContentType("application/json");
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/FoodCity", "root", "1234");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodcity", "root", "1234");
             PrintWriter writer = resp.getWriter();
 
             ResultSet rst = connection.prepareStatement("select * from Item").executeQuery();
@@ -27,13 +27,13 @@ public class ItemServlet extends HttpServlet {
             while (rst.next()) {
                 String code = rst.getString(1);
                 String name = rst.getString(2);
-                String qty = rst.getString(3);
+                String quantity = rst.getString(3);
                 double price = rst.getDouble(4);
 
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 objectBuilder.add("code", code);
                 objectBuilder.add("name", name);
-                objectBuilder.add("qty", qty);
+                objectBuilder.add("qty", quantity);
                 objectBuilder.add("price", price);
 
                 arrayBuilder.add(objectBuilder.build());
@@ -55,7 +55,7 @@ public class ItemServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String itemCODE = req.getParameter("itemCode");
         String itemNAME = req.getParameter("itemName");
-        String itemQuantity = req.getParameter("itemQTY");
+        String itemQuantity = req.getParameter("itemQuantity");
         String itemPRICE = req.getParameter("itemPrice");
 
         PrintWriter writer = resp.getWriter();
@@ -63,7 +63,7 @@ public class ItemServlet extends HttpServlet {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/FoodCity", "root", "1234");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodcity", "root", "1234");
 
             PreparedStatement prepareStatement = connection.prepareStatement("Insert into Item values(?,?,?,?)");
             prepareStatement.setObject(1, itemCODE);
@@ -103,13 +103,13 @@ public class ItemServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String itemCODE = req.getParameter("lblItemCode");
+        String itemCODE = req.getParameter("itemCode");
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/FoodCity", "root", "1234");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodcity", "root", "1234");
             PreparedStatement prepareStatement = connection.prepareStatement("Delete from Item where code=?");
             prepareStatement.setObject(1, itemCODE);
 
@@ -157,7 +157,7 @@ public class ItemServlet extends HttpServlet {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/FoodCity", "root", "1234");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodcity", "root", "1234");
             PreparedStatement preparedStatement = connection.prepareStatement("Update Item set name=?,qty=?,price=? where code=?");
             preparedStatement.setObject(1, itemName);
             preparedStatement.setObject(2, itemQty);
