@@ -158,7 +158,6 @@ public class CustomerServlet extends HttpServlet {
             pstm.setObject(3, customerSalary);
             pstm.setObject(4, customerID);
 
-
             if (pstm.executeUpdate() > 0) {
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 objectBuilder.add("status", 200);
@@ -172,7 +171,6 @@ public class CustomerServlet extends HttpServlet {
                 objectBuilder.add("data", "");
                 writer.print(objectBuilder.build());
             }
-
         } catch (ClassNotFoundException e) {
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
             objectBuilder.add("status", 500);
