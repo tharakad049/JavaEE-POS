@@ -157,7 +157,7 @@ public class ItemServlet extends HttpServlet {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodcity", "root", "1234");
-            PreparedStatement preparedStatement = connection.prepareStatement("Update Item set iName=?,iQTY=?,iPrice=? where iCode=?");
+            PreparedStatement preparedStatement = connection.prepareStatement("Update Item set name=?,qty=?,price=? where code=?");
             preparedStatement.setObject(1, itemName);
             preparedStatement.setObject(2, itemQty);
             preparedStatement.setObject(3, itemPrice);
