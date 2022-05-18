@@ -20,7 +20,6 @@ public class ItemServlet extends HttpServlet {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodcity", "root", "1234");
             PrintWriter writer = resp.getWriter();
-
             ResultSet rst = connection.prepareStatement("select * from Item").executeQuery();
             JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
 
@@ -103,14 +102,14 @@ public class ItemServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String itemCODE = req.getParameter("itemCode");
+        String itemCODE = req.getParameter("iCode");
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodcity", "root", "1234");
-            PreparedStatement prepareStatement = connection.prepareStatement("Delete from Item where code=?");
+            PreparedStatement prepareStatement = connection.prepareStatement("Delete from Item where iCode=?");
             prepareStatement.setObject(1, itemCODE);
 
             if (prepareStatement.executeUpdate() > 0) {
@@ -158,7 +157,7 @@ public class ItemServlet extends HttpServlet {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodcity", "root", "1234");
-            PreparedStatement preparedStatement = connection.prepareStatement("Update Item set name=?,qty=?,price=? where code=?");
+            PreparedStatement preparedStatement = connection.prepareStatement("Update Item set iName=?,iQTY=?,iPrice=? where iCode=?");
             preparedStatement.setObject(1, itemName);
             preparedStatement.setObject(2, itemQty);
             preparedStatement.setObject(3, itemPrice);
