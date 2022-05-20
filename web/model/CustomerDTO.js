@@ -1,7 +1,7 @@
-function CustomerDTO(id, name, tp, salary) {
+function CustomerDTO(id, name, address, salary) {
     var id=id;
     var name=name;
-    var tp=tp;
+    var address=address;
     var salary=salary;
 
     this.setId=function (cusId){
@@ -18,16 +18,16 @@ function CustomerDTO(id, name, tp, salary) {
         return name;
     }
 
-    this.setTp=function(cusTp){
-        tp=cusTp;
+    this.setAddress=function(cusAddress){
+        address=cusAddress;
     }
 
-    this.getTp=function (){
-        return tp;
+    this.getAddress=function (){
+        return address;
     }
 
     this.setSalary=function (cusSalary){
-        tp=cusSalary;
+        salary=cusSalary;
     }
 
     this.getSalary=function (){
