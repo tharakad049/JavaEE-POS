@@ -1,11 +1,13 @@
 package servlet;
 
+import javax.annotation.Resource;
 import javax.json.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
@@ -13,12 +15,14 @@ import java.sql.*;
 @WebServlet(urlPatterns = "/customer")
 public class CustomerServlet extends HttpServlet {
 
+    @Resource(name = "java:comp/env/jdbc/pool")
+    DataSource ds;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             resp.setContentType("application/json");
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodcity", "root", "1234");
+            Connection connection = ds.getConnection();
             PrintWriter writer = resp.getWriter();
             ResultSet rst = connection.prepareStatement("select * from Customer").executeQuery();
             JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
@@ -43,8 +47,8 @@ public class CustomerServlet extends HttpServlet {
             response.add("data", arrayBuilder.build());
             writer.print(response.build());
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            connection.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -59,8 +63,7 @@ public class CustomerServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodcity", "root", "1234");
+            Connection connection = ds.getConnection();
             PreparedStatement pstm = connection.prepareStatement("Insert into Customer values(?,?,?,?)");
             pstm.setObject(1, customerID);
             pstm.setObject(2, customerName);
@@ -75,16 +78,7 @@ public class CustomerServlet extends HttpServlet {
                 response.add("data", "");
                 writer.print(response.build());
             }
-
-        } catch (ClassNotFoundException e) {
-            JsonObjectBuilder response = Json.createObjectBuilder();
-            response.add("status", 400);
-            response.add("message", "Error");
-            response.add("data", e.getLocalizedMessage());
-            writer.print(response.build());
-            resp.setStatus(HttpServletResponse.SC_OK);
-            e.printStackTrace();
-
+            connection.close();
         } catch (SQLException throwables) {
             JsonObjectBuilder response = Json.createObjectBuilder();
             response.add("status", 400);
@@ -103,8 +97,7 @@ public class CustomerServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodcity", "root", "1234");
+            Connection connection = ds.getConnection();
             PreparedStatement pstm = connection.prepareStatement("Delete from Customer where id=?");
             pstm.setObject(1, customerID);
 
@@ -121,14 +114,7 @@ public class CustomerServlet extends HttpServlet {
                 objectBuilder.add("message", "");
                 writer.print(objectBuilder.build());
             }
-        } catch (ClassNotFoundException e) {
-            resp.setStatus(200);
-            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            objectBuilder.add("status", 500);
-            objectBuilder.add("message", "Error");
-            objectBuilder.add("data", e.getLocalizedMessage());
-            writer.print(objectBuilder.build());
-
+            connection.close();
         } catch (SQLException throwables) {
             resp.setStatus(200);
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
@@ -150,8 +136,7 @@ public class CustomerServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodcity", "root", "1234");
+            Connection connection = ds.getConnection();
             PreparedStatement pstm = connection.prepareStatement("Update Customer set name=?,address=?,salary=? where id=?");
             pstm.setObject(1, customerName);
             pstm.setObject(2, customerAddress);
@@ -171,12 +156,7 @@ public class CustomerServlet extends HttpServlet {
                 objectBuilder.add("data", "");
                 writer.print(objectBuilder.build());
             }
-        } catch (ClassNotFoundException e) {
-            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            objectBuilder.add("status", 500);
-            objectBuilder.add("message", "Update Failed");
-            objectBuilder.add("data", e.getLocalizedMessage());
-            writer.print(objectBuilder.build());
+            connection.close();
         } catch (SQLException throwables) {
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
             objectBuilder.add("status", 500);
